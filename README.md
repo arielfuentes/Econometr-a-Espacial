@@ -1,2 +1,2 @@
-# Econometr-a-Espacial
+# Econometría-Espacial
 Códigos de la Asignatura
