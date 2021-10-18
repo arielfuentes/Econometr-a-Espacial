@@ -1,0 +1,116 @@
+---
+title: "Tarea2 - Ayudantía"
+author: "Ariel Fuentes"
+date: "08-10-2021"
+output: 
+  html_document:
+    css: style.css
+    toc: TRUE
+    toc_depth: 3
+    toc_float:
+      collapsed: FALSE
+      smooth_scroo: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tibble)
+library(kableExtra)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+```{r, echo=FALSE}
+htmltools::img(src = knitr::image_uri(file.path("../data/logo_geo_0.png")
+                                      ),
+               alt = 'logo',
+               style = 'position:absolute; top:0; right:0; padding:1px;',
+               width = "110px",
+               heigth = "110px")
+```
+
+## 1. Enunciado
+
+Crear una base datos de 1.000 registros que va a contener 5 comunas (a, b, c, d y e). La primera comuna tiene que ser un total del 20% de registros, la segunda de un 30%, la tercera de un 25%, la cuarta de un 15% y la quinta de un 10%.
+Se debe crear una población total con distribución normal que va entre 10.000 y 100.000, con una desviación de 7.000.
+
+- Los niños corresponden del 7 al 21% de la población total.
+- La población de adulto mayor corresponde del 16 al 34% de la población total.
+
+### Datos generados
+
+````{r}
+set.seed(1000)
+BBDD <- data.frame(comuna = sample(c(paste0(rep("c", 5), seq(1:5))), 
+                                   size = 1000, 
+                                   replace = T, 
+                                   prob = c(.2, .3, .25, .15, .1)
+),
+pob_total = rnorm(1000, 100000, 7000)
+) %>%
+  mutate(niños = ceiling(sample(seq(.07, .21, by = .01), 
+                                1000, 
+                                replace = T)*pob_total),
+         adulto_mayor = trunc(sample(seq(.16, .34, by = .01), 
+                        1000, 
+                        replace = T)*pob_total))
+
+kable(BBDD, 
+      format.args = list(big.mark = ",")
+      ) %>%
+  kable_paper() %>%
+  scroll_box(width = "100%", height = "200px")
+```
+
+## 2. Índice de Dependencia
+
+Crear índice de dependencia por comuna tanto de la población de niños como de adulto mayor, cuya formulación es la siguiente:
+
+Segmento_pobl/Pobl_total*100
+
+````{r}
+BBDD_tot <- BBDD %>%
+  summarise(pob_total = sum(pob_total),
+            niños = sum(niños),
+            adulto_mayor = sum(adulto_mayor)) %>%
+  mutate(comuna = "global") %>%
+  relocate(comuna)
+
+dependencia <- bind_rows(BBDD, BBDD_tot) %>%
+  group_by(comuna) %>%
+  summarise(indice_n = sum(niños)/sum(pob_total)*100, 
+            indice_adul_m = sum(adulto_mayor)/ sum(pob_total)*100)
+
+rm(BBDD_tot)
+
+kable(dependencia, 
+      format.args = list(big.mark = ",")
+      ) %>%
+  kable_paper() %>%
+  scroll_box(width = "100%", height = "200px")
+````
+
+## 3. Gráficos
+
+Para analizar la estadística descriptiva, se procedió a superponer los gráficos de violín y diagrama de cajas para cada una de las comunas y desclasificado por *adulto mayor* y *niños*. Se observa que la población está envejecida, dado que en todas las comunas hay más cantidad de adulto mayor que de niños.
+
+````{r}
+BBDD_lon <- pivot_longer(BBDD, !comuna, 
+                         names_to = "pobl", 
+                         values_to = "cant") %>%
+  filter(pobl != "pob_total")
+
+ggplot(BBDD_lon, aes(comuna, cant, fill = comuna)) +
+  geom_violin() +
+  geom_boxplot(width = .3, fill = "white") +
+  facet_wrap(~pobl, labeller = labeller(pobl = c("adulto_mayor" = "Adulto Mayor",
+                                                 "niños" = "Niños" ))) +
+  theme_minimal() +
+  ggtitle("Estadística Descriptiva de la Población") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  xlab("Comunas") +
+  ylab("Personas")
+````
+
+Se observa además que el promedio de población y la distribución de grupos etáreos es muy similar para todas las comunas estudiadas. Las diferencias son leves y estas se hallan en que percentil se concentran los datos, de todas formas, estos tienden a ser equidistribuidos.

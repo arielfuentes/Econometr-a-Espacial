@@ -1,0 +1,173 @@
+---
+title: "Control1"
+author: "Ariel Fuentes"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:
+    css: style.css
+    toc: TRUE
+    toc_depth: 3
+    toc_float:
+      collapsed: FALSE
+      smooth_scroo: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DBI)
+library(odbc)
+library(tibble)
+library(kableExtra)
+library(dplyr)
+library(tidyr)
+library(DBI)
+library(dtplyr)
+library(lubridate)
+library(data.table)
+```
+
+```{r, echo=FALSE}
+htmltools::img(src = knitr::image_uri(file.path("../data/logo_geo_0.png")
+                                      ),
+               alt = 'logo',
+               style = 'position:absolute; top:0; right:0; padding:1px;',
+               width = "110px",
+               heigth = "110px")
+```
+
+## 1. Enunciado
+
+**De la encuesta Origen Destino determinar:**
+
+Tiempo de estadía y tiempo de viaje por 2 propósitos de viaje (A y B) para un día laboral normal.
+
+Con dicha información calcular:
+
+**Cantidad de Viajes = (cantidad de viajes por propósito A * H + cantidad de viajes por propósito B * G) / T**
+
+**Donde: **
+
+  * H: variación % de cantidad de población dada una distribución normal
+  * G: variación % de cantidad de población dada una distribución uniforme
+  * T: tiempo de viaje o estadía calculado
+
+Simular y analizar la cantidad de viajes 5 veces según los tiempos calculados.
+
+## 2. Obtención de datos
+
+Las EOD son generadas por SECTRA y se encuentran disponibles en formato de Base de Datos tipo Access, que están alojadas en la siguiente página: http://www.sectra.gob.cl/encuestas_movilidad/encuestas_movilidad.htm
+
+Se procede a cargar la base y a realizar la consulta de esta.
+
+````{r}
+accdb_con <- dbConnect(drv = odbc(), 
+                       .connection_string = paste0("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=", 
+                                                   "../data/base_datos_eodStgo_2012/base_datos_eodStgo_2012.accdb", 
+                                                   ";"))
+sql_t <- paste0("SELECT [Viaje]![FactorLaboralNormal]*[Persona]![Factor_LaboralNormal] AS Viajes,
+                PropositoAgregado,
+                PropositoEstraus,
+                Viaje.Persona,
+                Persona.Factor_LaboralNormal AS CantidadPersonas,
+                HoraIni, 
+                HoraFin, 
+                TiempoViaje 
+                FROM (Viaje INNER JOIN Persona ON Viaje.Persona = Persona.Persona)
+                INNER JOIN PropositoAgregado ON PropositoAgregado.Id = Viaje.PropositoAgregado
+                WHERE [Viaje]![FactorLaboralNormal]*[Persona]![Factor_LaboralNormal] >= 0
+                ORDER BY Viaje.Persona DESC, HoraIni Asc;
+                ")
+dt <- lazy_dt(DBI::dbGetQuery(conn = accdb_con, 
+                        statement = sql_t))
+````
+
+## 3. Tratamiento de los datos
+
+Con el objetivo de generar el *tiempo de estadía* y *tiempo de viaje*, se realiza lo siguiente, dejando los tiempos en horas:
+
+````{r, message=FALSE, warning = F}
+dt <- dt %>%
+  group_by(Persona) %>%
+  as_tibble() %>%
+  mutate(HoraAnt = lag(HoraFin),
+         Estadia = as.duration(interval(HoraAnt, HoraIni)),
+         Estadia = replace_na(Estadia, 0)) %>%
+  select(-c("HoraIni", "HoraFin", "HoraAnt")) %>%
+  filter(Estadia >= 0) %>%
+  group_by(PropositoEstraus, Persona) %>%
+  summarise(Personas_tot = sum(CantidadPersonas),
+            Viajes = sum(Viajes),
+            `Tiempo de Viaje` = sum(TiempoViaje),
+            Estadia = sum(Estadia)) %>%
+  filter(!is.na(`Tiempo de Viaje`)) %>%
+  group_by(PropositoEstraus) %>%
+  summarise(Personas = sum(Personas_tot),
+            Viajes = sum(Viajes),
+            `Tiempo de Viaje` = mean(`Tiempo de Viaje`)/60,
+            Estadia = as.numeric(mean(Estadia))/3600) %>%
+  ungroup()
+
+kable(dt, 
+      format.args = list(big.mark = ",")
+      ) %>%
+  kable_paper()
+````
+
+## 4. Distribución de Población
+
+En esta parte se calcula la distribución de la Población y se agrega al dataframe
+
+````{r}
+set.seed(15)
+pob_tot <- pull(summarise(dt, sum(Personas)))
+H <- 1 + (rnorm(1, mean = pob_tot)-pob_tot)/pob_tot
+G <- 1 + (runif(1, max = pob_tot)-pob_tot)/pob_tot
+
+dt <- dt %>%
+  mutate(H = H,
+         G = G) 
+
+kable(dt, 
+      format.args = list(big.mark = ","),
+      digits = 8
+      ) %>%
+  kable_paper()
+````
+
+## 5. Indicador de Viajes
+
+En esta sección aplicamos la fórmula del enunciado, utilizando solo los propósitos *Estudio* y *Trabajo*.
+
+````{r}
+viajes_tot <- function(nviajes_A, nviajes_B, tiempos_A, tiempos_B){
+  n_viajes <- (nviajes_A*unique(dt$H) + nviajes_B*unique(dt$G))/sum(tiempos_A, tiempos_B)
+  return(n_viajes)
+}
+
+Estudio_Otro <- viajes_tot(nviajes_A = dt$Viajes[dt$PropositoEstraus == "Estudio"], nviajes_B = dt$Viajes[dt$PropositoEstraus == "Otro"], tiempos_A = dt$`Tiempo de Viaje`[dt$PropositoEstraus == "Estudio"], tiempos_B = dt$`Tiempo de Viaje`[dt$PropositoEstraus == "Otro"])
+
+Estudio_Trabajo <- viajes_tot(nviajes_A = dt$Viajes[dt$PropositoEstraus == "Estudio"], nviajes_B = dt$Viajes[dt$PropositoEstraus == "Trabajo"], tiempos_A = dt$`Tiempo de Viaje`[dt$PropositoEstraus == "Estudio"], tiempos_B = dt$`Tiempo de Viaje`[dt$PropositoEstraus == "Trabajo"])
+
+Estudio_VolverACasa <- viajes_tot(nviajes_A = dt$Viajes[dt$PropositoEstraus == "Estudio"], nviajes_B = dt$Viajes[dt$PropositoEstraus == "Volver a casa"], tiempos_A = dt$`Tiempo de Viaje`[dt$PropositoEstraus == "Estudio"], tiempos_B = dt$`Tiempo de Viaje`[dt$PropositoEstraus == "Volver a casa"])
+
+Estudio_VolverACasa <- viajes_tot(nviajes_A = dt$Viajes[dt$PropositoEstraus == "Estudio"], nviajes_B = dt$Viajes[dt$PropositoEstraus == "Volver a casa"], tiempos_A = dt$`Tiempo de Viaje`[dt$PropositoEstraus == "Estudio"], tiempos_B = dt$`Tiempo de Viaje`[dt$PropositoEstraus == "Volver a casa"])
+
+Otro_Trabajo <- viajes_tot(nviajes_A = dt$Viajes[dt$PropositoEstraus == "Otro"], nviajes_B = dt$Viajes[dt$PropositoEstraus == "Trabajo"], tiempos_A = dt$`Tiempo de Viaje`[dt$PropositoEstraus == "Otro"], tiempos_B = dt$`Tiempo de Viaje`[dt$PropositoEstraus == "Trabajo"])
+
+Otro_VolverACasa <- viajes_tot(nviajes_A = dt$Viajes[dt$PropositoEstraus == "Otro"], nviajes_B = dt$Viajes[dt$PropositoEstraus == "Volver a casa"], tiempos_A = dt$`Tiempo de Viaje`[dt$PropositoEstraus == "Otro"], tiempos_B = dt$`Tiempo de Viaje`[dt$PropositoEstraus == "Volver a casa"])
+
+Resultados <- list(Estudio_Otro,
+Estudio_Trabajo,
+Estudio_VolverACasa,
+Otro_Trabajo,
+Otro_VolverACasa)
+
+names(Resultados) <- c("Estudio_Otro",
+"Estudio_Trabajo",
+"Estudio_VolverACasa",
+"Otro_Trabajo",
+"Otro_VolverACasa")
+
+Resultados
+
+````
