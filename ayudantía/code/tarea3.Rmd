@@ -1,0 +1,103 @@
+---
+title: "Tarea3 - Ayudantía"
+author: "Ariel Fuentes"
+date: "30-11-2021"
+output: 
+  html_document:
+    css: style.css
+    toc: TRUE
+    toc_depth: 3
+    toc_float:
+      collapsed: FALSE
+      smooth_scroo: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DBI)
+library(tibble)
+library(ggplot2)
+library(dplyr)
+library(stringr)
+
+```
+
+```{r, echo=FALSE}
+htmltools::img(src = knitr::image_uri(file.path("../data/logo_geo_0.png")
+                                      ),
+               alt = 'logo',
+               style = 'position:absolute; top:0; right:0; padding:1px;',
+               width = "110px",
+               heigth = "110px")
+```
+
+## 1. Temática
+
+En la presente tarea, se visualiza el detalle de los recorridos de los camiones de aseo domiciliario de la ciudad de Valdivia el año 2015. Consta de las siguientes partes:
+
+- Se descarga archivo de extensión `*.csv` desde el [Portal de Datos Abiertos](https://datos.gob.cl/).
+- Se carga como base de datos *SQLite*.
+- Se procesa y visualiza en *R*.
+
+## 2. Conección a Base de Datos
+
+````{r}
+con <- dbConnect(RSQLite::SQLite(), "../data/test.db")
+
+recorridos <- dbGetQuery(con, "SELECT * FROM `recorrido camiones aseo 2015 valdivia`") %>%
+  as_tibble() %>%
+  filter(!is.na(Vehicle))
+dbDisconnect(con)
+````
+
+## 3. Análisis
+
+La base de datos contiene en su mayoría datos del 8 de abril de 2015. Por lo que obviaremos del análisis los datos que no corresponden a dicha fecha. 
+
+- Como primer paso, deseamos análizar el tipo de actividad que realiza la flota en cuestión, para ello, confeccionamos un gráfico de torta:
+
+````{r}
+Event <- recorridos %>%
+  filter(ActivityDate == "2015-04-08T00:00:00") %>%
+  group_by(EventType) %>%
+  summarise(n = n()) %>%
+  ungroup() %>%
+  mutate(lbl = paste0(as.character(round(n/sum(n)*100, 2)), "%")) %>%
+  arrange(n)
+
+ggplot(Event, aes(x="", y=n, fill=EventType)) +
+  geom_col(color = "black") +
+  guides(fill = guide_legend(title = "Tipos de Eventos")) +
+  scale_fill_viridis_d() +
+  coord_polar(theta = "y") +
+  theme_void() +
+  ggtitle("Actividad Camiones de Aseo - Valdivia") +
+  theme(plot.title = element_text(hjust = 0.5))
+````
+
+Si bien la categoría de eventos no son del todo claras, se observa que cerca del 90% está listo para operar (Actualización Programada).
+
+- En segundo lugar, quisiéramos saber el uso que se le da a la flota:
+
+````{r}
+Veh <- recorridos %>%
+  group_by(Vehicle) %>%
+  summarise(uso = n()) %>%
+  ungroup() %>%
+  mutate(Veh_num = str_extract(Vehicle, "(\\d)+"))
+
+Dev.Std <- round(sd(Veh$uso), 2)
+
+ggplot(Veh, aes(x = Veh_num, y = uso)) +
+  geom_col() +
+  geom_hline(yintercept = mean(Veh$uso), color = "blue") +
+  theme_light() +
+  annotate(geom = "text", x = 10, y = 400, label = paste0("Desviación Estándar:", Dev.Std)) +
+  ggtitle("Vehículos de Aseo por Día - Valdivia 2015") +
+  xlab("id Veh.") +
+  scale_y_continuous(name = "Uso de Vehículos",
+                     breaks = seq(0, 600, 50)) +
+  theme(plot.title = element_text(hjust = 0.5))
+````
+
+Se observa que del total de la flota, se le da un uso intensivo a los vehículos *196, 197 y 227*. También, nos encontramos con vehículos con poco uso como lo es el *146 y 161*, los que no tienen nigún uso, podríamos suponer que es flota de reserva.

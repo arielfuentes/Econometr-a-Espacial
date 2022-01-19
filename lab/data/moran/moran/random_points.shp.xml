@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xml:lang="es"><Esri><CreaDate>20201203</CreaDate><CreaTime>13411500</CreaTime><ArcGISFormat>1.0</ArcGISFormat><SyncOnce>TRUE</SyncOnce><DataProperties><lineage><Process ToolSource="c:\program files (x86)\arcgis\desktop10.8\ArcToolbox\Toolboxes\Data Management Tools.tbx\CreateRandomPoints" Date="20201203" Time="133128">CreateRandomPoints C:\Users\Macuch\Documents\ArcGIS\Default.gdb ranodm_points comunas_moran "0 0 250 250" SIN_INFO "0 Meters" POINT 0</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.8\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20201203" Time="133750">CalculateField ranodm_points random getRandomValue() PYTHON_9.3 "import numpy
+
+def getRandomValue(): 
+    return numpy.random.randint(0,1000)"</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.8\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20201203" Time="133804">CalculateField ranodm_points random getRandomValue() PYTHON_9.3 "import numpy
+
+def getRandomValue(): 
+    return numpy.random.randint(0,1000)"</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.8\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20201203" Time="133821">CalculateField ranodm_points random getRandomValue() PYTHON_9.3 "import numpy
+
+def getRandomValue(): 
+    return numpy.random.randint(0,100)"</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.8\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20201203" Time="133919">CalculateField ranodm_points random2 getRandomValue( !OID! ) PYTHON_9.3 "import numpy
+
+def getRandomValue(oid): 
+    return numpy.random.randint(0,100)* oid"</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.8\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20201203" Time="134058">CalculateField ranodm_points random3 getRandomValue( !OID! ) PYTHON_9.3 "import numpy
+from numpy import random
+
+def getRandomValue(oid): 
+    return numpy.random.randint(0,100)/(oid*random.rand())"</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.8\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20201203" Time="134545">CalculateField random_points id_swm [FID] VB #</Process></lineage></DataProperties></Esri></metadata>

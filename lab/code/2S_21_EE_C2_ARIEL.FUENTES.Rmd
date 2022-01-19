@@ -1,0 +1,133 @@
+---
+title: "Control 2"
+author: "Ariel Fuentes"
+date: "07-11-2021"
+output: 
+  html_document:
+    css: style.css
+    toc: TRUE
+    toc_depth: 3
+    toc_float:
+      collapsed: FALSE
+      smooth_scroo: TRUE
+bibliography: biblio.bib
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tibble)
+library(kableExtra)
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(ggplot2)
+library(readr)
+library(scales)
+```
+
+```{r, echo=FALSE}
+htmltools::img(src = knitr::image_uri(file.path("../data/logo_geo_0.png")
+),
+alt = 'logo',
+style = 'position:absolute; top:0; right:0; padding:1px;',
+width = "110px",
+heigth = "110px")
+```
+
+## 1. Enunciado
+
+En el presente reporte se analizarán los viajes del sistema **RED**. Los datos a utilizar es la *matriz OD de Subidas y Bajadas de Abril de 2019*, datos provistos por el DTPM: https://www.dtpm.cl/index.php/documentos/matrices-de-viaje
+
+
+````{r, message = F}
+OD <- read_delim("../data/MatrizOD_Subidas_Bajadas_2019.04/tablasWeb2019Abril_01_05.MatrizODZonasMediaHora.csv", delim = ";")
+````
+
+## 2. Análisis
+
+Dada la configuración del esquema de pago de los usuarios, los viajes están constituidos por etapas, las que pueden ir de 1 a 4. El siguente gráfico, identifica la importancia de dichos etapas en la composición de viajes.
+
+````{r}
+etapas <- OD %>%
+  summarise(`1` = sum(Viajes1Etapa), 
+            `2` = sum(Viajes2Etapas), 
+            `3` = sum(Viajes3Etapas), 
+            `4` = sum(Viajes4Etapas)) %>%
+  pivot_longer(everything(), names_to = "n_etapa", values_to = "TRX") %>%
+  mutate(perc = TRX / sum(TRX)) %>%
+  arrange(perc) %>%
+  mutate(lbl = percent(perc)) %>%
+  mutate(ypos = cumsum(perc)- 0.5*perc)
+
+
+ggplot(etapas, aes(x="", y=TRX, fill=n_etapa)) +
+  geom_col(color = "black") +
+  geom_label(aes(label = lbl), color = rep("black", 4),
+             size = 3,
+             show.legend = FALSE,
+             vjust = c(0, 1, 0, 0)) +
+  guides(fill = guide_legend(title = "Etapa de viaje")) +
+  scale_fill_viridis_d() +
+  coord_polar(theta = "y") + 
+  theme_void() + 
+  ggtitle("Validaciones por etapa de viaje") +
+  theme(plot.title = element_text(hjust = 0.5))
+````
+
+Se observa que la casi totalidad de los viajes (96.6 %) son realizados en 1 y 2 etapas.
+
+Adatrap, clasifica las validaciones en una zonificación compuesta por agrupación de paradas, denominada: Zonificación 777. Esto es descrito en @FareEV. Nos interesaría saber como se distribuyen las subidas y bajadas de viajes por dichas zonas.
+
+````{r}
+SubDLN <- OD %>%
+  group_by(Zona777Subida) %>%
+  summarise(DLN = sum(ViajeLaboralPromedio)) %>%
+  ungroup() %>%
+  mutate(tipo = "Subidas") %>%
+  rename(Zona777 = Zona777Subida)
+BajDLN <- OD %>%
+  group_by(Zona777Bajada) %>%
+  summarise(DLN = sum(ViajeLaboralPromedio)) %>%
+  ungroup() %>%
+  mutate(tipo = "Bajadas") %>%
+  rename(Zona777 = Zona777Bajada)
+consol <- bind_rows(SubDLN, BajDLN) %>%
+  arrange(Zona777) %>%
+  filter(DLN <= 10000)
+
+ggplot(consol, aes(x=DLN, fill=tipo)) + 
+  geom_density(alpha = .5) +
+  ggtitle("a) Gráfico de Densidad Viajes en DLN") +
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  ylab("Densidad")
+
+consol <- bind_rows(SubDLN, BajDLN) %>%
+  arrange(Zona777) %>%
+  filter(DLN >= 50000)
+
+ggplot(consol, aes(x=DLN, fill=tipo)) + 
+  geom_density(alpha = .5) +
+  ggtitle("b) Gráfico de Densidad Viajes en DLN") +
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  ylab("Densidad")
+````
+
+El primer gráfico nos muestra que la demanda capturada por las zonas, no es uniforme, sino que posee una preponderancia los valores bajos de la muestra. En cambio, el gráfico b) identifica los valores altos, y nos enseña que las subidas de las bajadas no poseen el mismo comportamiento; donde las Subidas possen una mayor variabilidad. Posiblemente, esto se debe a que las Bajadas se encuentran estimadas. El método de estimación de bajadas es desarrollado en @adatrap.
+
+A continuación, se explorará como varía la demanda a lo largo del día.
+
+````{r}
+Viaje_ts <- OD %>%
+  group_by(MediaHora) %>%
+  summarise(DLN = sum(ViajeLaboralPromedio))
+
+ggplot(Viaje_ts, aes(x=MediaHora, y=DLN)) +
+  geom_line() + 
+  xlab("Media Hora") +
+  ggtitle("Viajes Laborales \n Serie de Tiempo") +
+  theme(plot.title = element_text(hjust = 0.5))
+````
+
+De la gráfica, se observa que la *Punta Mañana* y *Punta Tarde* es bastante similar, en cambio en el periodo valle (entre puntas), la cantidad de viajes tienden a ser bastante plana, a excepción de lo que se denomina *Punta Medio Día*. ^[La definición de los Periodos, se puede encontrar en los *Programas Operacionales* (https://www.dtpm.cl/index.php/noticias/pov2)]
+
+## 3. Bibliografía

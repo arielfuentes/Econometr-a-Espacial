@@ -1,0 +1,697 @@
+y_five=as.matrix(data_five_DF[,1])
+gwr.sel_five_98=optimize(GWR_five,x=x_five,y=y_five,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+lm.i=try(lm.wfit(y=y,x=x,w=w.i))
+x
+i=1#
+		dxs=spDistsN1(coords_data,coords_fit[i,])#
+		if(!is.finite(dxs[i]))#
+		dxs[i]=0#
+		w.i=gwr.Gauss(dxs^2,bw[i])#
+		w.i[i]=0
+lm.i=try(lm.wfit(y=y_five,x=x_five,w=w.i))
+b=coefficients(lm.i)
+for(k in 1:length(b)){#
+			if(is.na(b[k]))#
+			b[k]=0#
+		}
+b
+cv[i]=y[i]-(t(b)%*%x[i])
+class(b)
+length(b)
+x[1,]
+x_five[1,]
+dim(x_five[1,])
+length(x_five[1,])
+cv[i]=y[i]-(b%*%x[i])
+cv[i]=y[i]-(b*x[i])
+cv[1]
+lm.i
+summary(y_five)
+summary(lm.i)
+T98
+?try
+lm.i$coefficients
+T98
+summary(data_five_DF)
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five)
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)
+library(spgwr)
+gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+class(y)
+length(y)
+dim(x)
+names(x)
+fix(GWR_five)
+bw=gw.adapt(dp=coords_data,fp=coords_fit,quant=q)
+n=nrow(coords_fit)
+cv=rep(0,n)
+i=1
+dxs=spDistsN1(coords_data,coords_fit[i,])
+if(!is.finite(dxs[i]))
+dxs[i]=0
+w.i=gwr.Gauss(dxs^2,bw[i])
+w.i[i]=0
+lm.i=try(lm.wfit(y=y,x=x,w=w.i))
+b=coefficients(lm.i)
+b
+length(b)
+lenght(x)
+length(x)
+y <- model.extract(mf, "response")
+x<-model.matrix(mt,mf)
+dim(x)
+x[1,]
+fix(GWR_five)
+gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_98
+gwr.98_ori_2=gwr(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,adapt=gwr.98_ori_bw,data=DF_98_ori_SPDF[1:6000,],hatmatrix=T)
+ls()
+BT98_gauss_tbw1
+plot(c(0:5),c(opt_98_U$objective,BT98_gauss_tbw1[12],BT98_gauss_tbw2[12],BT98_gauss_tbw3[12],BT98_gauss_tbw4[12],BT98_gauss_tbw5[12]),type="b",ylab="CV score",xlab="temporal bandwidth [years]",ylim=c(15000,60000))
+plot(c(0:5),c(opt_96_U$objective,BT96_gauss_tbw1[12],BT96_gauss_tbw2[12],BT96_gauss_tbw3[12],BT96_gauss_tbw4[12],BT96_gauss_tbw5[12]),type="b",ylab="CV score",xlab="temporal bandwidth [years]",ylim=c(15000,60000))
+plot(c(0:5),c(BT98_gauss_tbw0[2],BT98_gauss_tbw1[12],BT98_gauss_tbw2[12],BT98_gauss_tbw3[12],BT98_gauss_tbw4[12],BT98_gauss_tbw5[12]),type="b",main="1998",ylab="CV score",xlab="temporal bandwidth")
+BT98_gauss_tbw2[12]
+plot(c(0:5),c(opt_98_U$objective,BT98_gauss_tbw1[12],BT98_gauss_tbw2[12],BT98_gauss_tbw3[12],BT98_gauss_tbw4[12],BT98_gauss_tbw5[12]),type="b",main="1998",ylab="CV score",xlab="temporal bandwidth")
+plot(c(0:5),c(BT98_gauss_tbw0[2],BT98_gauss_tbw1[12],BT98_gauss_tbw2[12],BT98_gauss_tbw3[12],BT98_gauss_tbw4[12],BT98_gauss_tbw5[12]),type="b",main="1998",ylab="CV score",xlab="temporal bandwidth")
+BT98_gauss_tbw1[12]
+opt_98_U
+opt_97_U
+opt_98_U
+BT98_gauss_tbw1
+plot(c(0:5),c(opt_98_U$objective,BT98_gauss_tbw1[12],BT98_gauss_tbw2[12],BT98_gauss_tbw3[12],BT98_gauss_tbw4[12],BT98_gauss_tbw5[12]),type="b",ylab="CV score",xlab="temporal bandwidth [years]",ylim=c(15000,60000))
+BT98_gauss_tbw1
+opt_98_U
+98_U
+T98_U
+BT97_gauss_tbw1
+opt_97_U
+T97_U,
+T97_U
+BT97_gauss_tbw1
+BT96_gauss_tbw1
+plot(c(0:5),c(opt_96_U$objective,BT96_gauss_tbw1[12],BT96_gauss_tbw2[12],BT96_gauss_tbw3[12],BT96_gauss_tbw4[12],BT96_gauss_tbw5[12]),type="b",ylab="CV score",xlab="temporal bandwidth [years]",ylim=c(15000,60000))
+BT96_gauss_tbw1
+BT95_gauss_tbw1
+BT94_gauss_tbw1
+BT93_gauss_tbw1
+BT92_gauss_tbw1
+BT91_gauss_tbw1
+BT90_gauss_tbw1
+BT89_gauss_tbw1
+BT88_gauss_tbw1
+BT87_gauss_tbw2
+BT86_gauss_tbw2
+BT85_gauss_tbw1
+BT84_gauss_tbw1
+BT83_gauss_tbw1
+BT82_gauss_tbw1
+opt80_1
+opt83_1
+BT83_gauss_tbw1
+library(spgwr)
+gwr.sel_five_98
+n97
+data_five_DF=rbind(as.data.frame(RDLondon.97.SPDF),as.data.frame(RDLondon.96.SPDF),as.data.frame(RDLondon.95.SPDF),as.data.frame(RDLondon.94.SPDF),as.data.frame(RDLondon.93.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix(data_five_DF[(1:nrow((as.data.frame(RDLondon.97.SPDF)),23:24])
+coords_fit=as.matrix(data_five_DF[(1:nrow(as.data.frame(RDLondon.97.SPDF)),23:24])
+coords_fit=as.matrix(data_five_DF[(1:nrow(as.data.frame(RDLondon.97.SPDF),23:24])
+coords_fit=as.matrix(data_five_DF[(1:nrow(as.data.frame(RDLondon.97.SPDF)),23:24])
+coords_fit=as.matrix(data_five_DF[(1:nrow(as.data.frame(RDLondon.97.SPDF)),23:24]))
+coords_fit=as.matrix(data_five_DF[(1: nrow(as.data.frame(RDLondon.97.SPDF))   ),23:24]))
+coords_fit=as.matrix(    data_five_DF[(  1:   nrow(as.data.frame(RDLondon.97.SPDF)) )     ,23:24]))
+coords_fit=as.matrix(    data_five_DF[   (  1:   nrow(as.data.frame(RDLondon.97.SPDF)) )     ,23:24]       )
+coords_fit
+data_five_DF=rbind(as.data.frame(RDLondon.97.SPDF),as.data.frame(RDLondon.96.SPDF),as.data.frame(RDLondon.95.SPDF),as.data.frame(RDLondon.94.SPDF),as.data.frame(RDLondon.93.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.97.SPDF)) ) ,23:24]  )
+gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+nrow(as.data.frame(RDLondon.97.SPDF))
+data_five_DF=rbind(as.data.frame(RDLondon.98.SPDF),as.data.frame(RDLondon.97.SPDF),as.data.frame(RDLondon.96.SPDF),as.data.frame(RDLondon.95.SPDF),as.data.frame(RDLondon.94.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.97.SPDF)) ) ,23:24]  )
+gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+data_five_DF=rbind(as.data.frame(RDLondon.98.SPDF),as.data.frame(RDLondon.97.SPDF),as.data.frame(RDLondon.96.SPDF),as.data.frame(RDLondon.95.SPDF),as.data.frame(RDLondon.94.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.97.SPDF)) ) ,23:24]  )#
+#
+gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_98
+data_five_DF=rbind(as.data.frame(RDLondon.97.SPDF),as.data.frame(RDLondon.96.SPDF),as.data.frame(RDLondon.95.SPDF),as.data.frame(RDLondon.94.SPDF),as.data.frame(RDLondon.93.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.97.SPDF)) ) ,23:24]  )
+gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_97
+data_five_DF=rbind(as.data.frame(RDLondon.96.SPDF),as.data.frame(RDLondon.95.SPDF),as.data.frame(RDLondon.94.SPDF),as.data.frame(RDLondon.93.SPDF),as.data.frame(RDLondon.92.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.97.SPDF)) ) ,23:24]  )#
+#
+#gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+gwr.sel_five_96=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_96
+data_five_DF=rbind(as.data.frame(RDLondon.95.SPDF),as.data.frame(RDLondon.94.SPDF),as.data.frame(RDLondon.93.SPDF),as.data.frame(RDLondon.92.SPDF),as.data.frame(RDLondon.91.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.95.SPDF)) ) ,23:24]  )#
+#
+#gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_96=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+gwr.sel_five_95=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_95
+data_five_DF=rbind(as.data.frame(RDLondon.96.SPDF),as.data.frame(RDLondon.95.SPDF),as.data.frame(RDLondon.94.SPDF),as.data.frame(RDLondon.93.SPDF),as.data.frame(RDLondon.92.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.96.SPDF)) ) ,23:24]  )#
+#
+#gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+gwr.sel_five_96=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_95=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_96
+data_five_DF=rbind(as.data.frame(RDLondon.94.SPDF),as.data.frame(RDLondon.93.SPDF),as.data.frame(RDLondon.92.SPDF),as.data.frame(RDLondon.91.SPDF),as.data.frame(RDLondon.90.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.94.SPDF)) ) ,23:24]  )#
+#
+#gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_96=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_95=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+gwr.sel_five_94=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_94
+GWR_five
+data_five_DF=rbind(as.data.frame(RDLondon.93.SPDF),as.data.frame(RDLondon.92.SPDF),as.data.frame(RDLondon.91.SPDF),as.data.frame(RDLondon.90.SPDF),as.data.frame(RDLondon.89.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.93.SPDF)) ) ,23:24]  )#
+#
+#gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_96=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_95=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_94=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+gwr.sel_five_93=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_93
+data_five_DF=rbind(as.data.frame(RDLondon.92.SPDF),as.data.frame(RDLondon.91.SPDF),as.data.frame(RDLondon.90.SPDF),as.data.frame(RDLondon.89.SPDF),as.data.frame(RDLondon.88.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.92.SPDF)) ) ,23:24]  )#
+#
+#gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_96=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_95=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_94=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_93=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+gwr.sel_five_92=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_92
+data_five_DF=rbind(as.data.frame(RDLondon.91.SPDF),as.data.frame(RDLondon.90.SPDF),as.data.frame(RDLondon.89.SPDF),as.data.frame(RDLondon.88.SPDF),as.data.frame(RDLondon.87.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.91.SPDF)) ) ,23:24]  )#
+#
+#gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_96=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_95=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_94=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_93=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_92=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+gwr.sel_five_91=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_91
+data_five_DF=rbind(as.data.frame(RDLondon.90.SPDF),as.data.frame(RDLondon.89.SPDF),as.data.frame(RDLondon.88.SPDF),as.data.frame(RDLondon.87.SPDF),as.data.frame(RDLondon.86.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.90.SPDF)) ) ,23:24]  )#
+#
+#gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_96=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_95=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_94=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_93=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_92=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_91=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+gwr.sel_five_90=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_90
+data_five_DF=rbind(as.data.frame(RDLondon.89.SPDF),as.data.frame(RDLondon.88.SPDF),as.data.frame(RDLondon.87.SPDF),as.data.frame(RDLondon.86.SPDF),as.data.frame(RDLondon.85.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.89.SPDF)) ) ,23:24]  )#
+#
+#gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_96=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_95=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_94=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_93=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_92=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_91=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_90=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+gwr.sel_five_89=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_89
+data_five_DF=rbind(as.data.frame(RDLondon.88.SPDF),as.data.frame(RDLondon.87.SPDF),as.data.frame(RDLondon.86.SPDF),as.data.frame(RDLondon.85.SPDF),as.data.frame(RDLondon.84.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.88.SPDF)) ) ,23:24]  )#
+#
+#gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_96=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_95=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_94=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_93=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_92=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_91=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_90=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_89=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+gwr.sel_five_88=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_88
+data_five_DF=rbind(as.data.frame(RDLondon.87.SPDF),as.data.frame(RDLondon.86.SPDF),as.data.frame(RDLondon.85.SPDF),as.data.frame(RDLondon.84.SPDF),as.data.frame(RDLondon.83.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.87.SPDF)) ) ,23:24]  )#
+#
+#gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_96=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_95=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_94=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_93=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_92=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_91=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_90=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_89=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_88=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+gwr.sel_five_87=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_87
+data_five_DF=rbind(as.data.frame(RDLondon.86.SPDF),as.data.frame(RDLondon.85.SPDF),as.data.frame(RDLondon.84.SPDF),as.data.frame(RDLondon.83.SPDF),as.data.frame(RDLondon.82.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.86.SPDF)) ) ,23:24]  )#
+#
+#gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_96=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_95=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_94=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_93=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_92=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_91=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_90=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_89=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_88=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_87=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+gwr.sel_five_86=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_86
+data_five_DF=rbind(as.data.frame(RDLondon.85.SPDF),as.data.frame(RDLondon.84.SPDF),as.data.frame(RDLondon.83.SPDF),as.data.frame(RDLondon.82.SPDF),as.data.frame(RDLondon.81.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.85.SPDF)) ) ,23:24]  )#
+#
+#gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_96=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_95=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_94=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_93=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_92=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_91=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_90=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_89=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_88=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_87=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_86=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+gwr.sel_five_85=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_85
+data_five_DF=rbind(as.data.frame(RDLondon.84.SPDF),as.data.frame(RDLondon.83.SPDF),as.data.frame(RDLondon.82.SPDF),as.data.frame(RDLondon.81.SPDF),as.data.frame(RDLondon.80.SPDF))#
+#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.84.SPDF)) ) ,23:24]  )#
+#
+#gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_96=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_95=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_94=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_93=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_92=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_91=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_90=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_89=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_88=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_87=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_86=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_85=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+gwr.sel_five_84=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_84
+gwr.sel_five_83=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_83
+data_five_DF=rbind(as.data.frame(RDLondon.82.SPDF),as.data.frame(RDLondon81.SPDF),as.data.frame(RDLondon.80.SPDF))
+data_five_DF=rbind(as.data.frame(RDLondon.82.SPDF),as.data.frame(RDLondon81.SPDF),as.data.frame(RDLondon.80.SPDF))#
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.82.SPDF)) ) ,23:24]  )#
+#
+#gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_96=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_95=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_94=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_93=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_92=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_91=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_90=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_89=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_88=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_87=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_86=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_85=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_84=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_83=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+gwr.sel_five_83=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_82=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_82
+data_five_DF=rbind(as.data.frame(RDLondon81.SPDF),as.data.frame(RDLondon.80.SPDF))
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.81.SPDF)) ) ,23:24]  )#
+#
+#gwr.sel_five_98=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_97=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_96=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_95=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_94=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_93=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_92=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_91=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_90=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_89=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_88=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_87=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_86=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_85=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_84=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_83=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+#gwr.sel_five_82=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)#
+gwr.sel_five_81=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_81
+data_five_DF=rbind(as.data.frame(RDLondon.84.SPDF),as.data.frame(RDLondon.83.SPDF),as.data.frame(RDLondon.82.SPDF),as.data.frame(RDLondon81.SPDF),as.data.frame(RDLondon.80.SPDF))
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)
+data_five_DF=rbind(as.data.frame(RDLondon.84.SPDF),as.data.frame(RDLondon.83.SPDF),as.data.frame(RDLondon.82.SPDF),as.data.frame(RDLondon.81.SPDF),as.data.frame(RDLondon.80.SPDF))
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)
+x
+names(x)
+class(x)
+summary(x)
+x<-model.matrix(mt,mf)
+y
+length(y)
+data_five_DF=rbind(as.data.frame(RDLondon.84.SPDF),as.data.frame(RDLondon.83.SPDF),as.data.frame(RDLondon.82.SPDF),as.data.frame(RDLondon.81.SPDF),as.data.frame(RDLondon.80.SPDF))
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.84.SPDF)) ) ,23:24]  )
+gwr.sel_five_84=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_84
+data_five_DF=rbind(as.data.frame(RDLondon.83.SPDF),as.data.frame(RDLondon.82.SPDF),as.data.frame(RDLondon.81.SPDF),as.data.frame(RDLondon.80.SPDF))
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.83.SPDF)) ) ,23:24]  )
+gwr.sel_five_83=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_83
+data_five_DF=rbind(as.data.frame(RDLondon.90.SPDF),as.data.frame(RDLondon.89.SPDF),as.data.frame(RDLondon.88.SPDF),as.data.frame(RDLondon.87.SPDF),as.data.frame(RDLondon.86.SPDF))
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)
+data_five_DF=rbind(as.data.frame(RDLondon.90.SPDF),as.data.frame(RDLondon.89.SPDF),as.data.frame(RDLondon.88.SPDF),as.data.frame(RDLondon.87.SPDF),as.data.frame(RDLondon.86.SPDF))
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.90.SPDF)) ) ,23:24]  )
+gwr.sel_five_90=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_90
+data_five_DF=rbind(as.data.frame(RDLondon.83.SPDF),as.data.frame(RDLondon.82.SPDF),as.data.frame(RDLondon.81.SPDF),as.data.frame(RDLondon.80.SPDF))
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.84.SPDF)) ) ,23:24]  )
+data_five_DF=rbind(as.data.frame(RDLondon.83.SPDF),as.data.frame(RDLondon.82.SPDF),as.data.frame(RDLondon81.SPDF),as.data.frame(RDLondon.80.SPDF))
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.83.SPDF)) ) ,23:24]  )
+gwr.sel_five_83=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+data_five_DF=rbind(as.data.frame(RDLondon.83.SPDF),as.data.frame(RDLondon.82.SPDF),as.data.frame(RDLondon.81.SPDF),as.data.frame(RDLondon.80.SPDF))
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.83.SPDF)) ) ,23:24]  )
+gwr.sel_five_83=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_83
+data_five_DF=rbind(as.data.frame(RDLondon81.SPDF),as.data.frame(RDLondon.80.SPDF))
+data_five_DF=rbind(as.data.frame(RDLondon.81.SPDF),as.data.frame(RDLondon.80.SPDF))
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)#
+#
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)#
+#
+coords_data=as.matrix(data_five_DF[,23:24])
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.81.SPDF)) ) ,23:24]  )
+gwr.sel_five_81=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_81
+data_five_DF=as.data.frame(RDLondon.80.SPDF)
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.80.SPDF)) ) ,23:24]  )
+gwr.sel_five_80=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+data_five_DF=rbind(as.data.frame(RDLondon.95.SPDF),as.data.frame(RDLondon.94.SPDF),as.data.frame(RDLondon.93.SPDF),as.data.frame(RDLondon.92.SPDF),as.data.frame(RDLondon.91.SPDF))
+mf<-lm(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF,method="model.frame")#
+#
+mt<-terms(P~FLRAREA+BLDPWW1+BLDPOSTW+BLD60S+BLD70S+BLD80S+BLD90S+TYPDETCH+TYPTRRD+TYPBNGLW+TYPFLAT+GARAGE+CENTHEAT+BATH2+PROF+UNEMPLOY+FLRDETCH+FLRFLAT+FLRBNGLW+FLRTRRD+LOGDIST,data=data_five_DF)
+y <- model.extract(mf, "response")#
+x<-model.matrix(mt,mf)
+coords_data=as.matrix(data_five_DF[,23:24])#
+coords_fit=as.matrix( data_five_DF[(1: nrow(as.data.frame(RDLondon.95.SPDF)) ) ,23:24]  )
+gwr.sel_five_95=optimize(GWR_five,x=x,y=y,coords_data=coords_data,coords_fit=coords_fit,lower=0, upper=1)
+gwr.sel_five_95
+BT90_gauss_tbw2
+BT84_gauss_tbw1
+BT84_gauss_tbw2
+BT84_gauss_tbw3
+BT84_gauss_tbw4
+BT83_gauss_tbw1
+BT83_gauss_tbw2
+BT83_gauss_tbw3
+opt80_1
+BT95_gauss_tbw5
+104000/2
+83000/2
+52000-41500
+10500+20000+25000
+55500+20000
+75000
+75500
+75500+375000
+30000*6+350000
+30000*6
+180000+350000
+870000-530000
+340000/30000
+library(foreign)
+zurich_data=read.dbf("zurich_data1.dbf")
+zurich_data=read.dbf("zurich_data_1.dbf")
+write.csv(zurich_data,file="zurich_data.csv")
