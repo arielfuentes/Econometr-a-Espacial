@@ -78,3 +78,39 @@ select(m_test_pred, total_uf, .pred) %>%
   geom_smooth(formula= y~x)
 ####################aplicar técnicas de vaidación cruzada
 ######################modelo elástico
+############################################GWR
+propie2 <- filter(propie, !is.na(latitud) & longitud > -80 & longitud < -70 & latitud < -34) %>%
+  st_as_sf(coords = c("longitud", "latitud"), crs = 4326) %>%
+  as_Spatial()
+#bandwidth
+bwG <- gwr.sel(total_uf ~ tot_constr_m2 + tot_terreno_m2 + num_estacionam, 
+               data = propie2, 
+               gweight = gwr.Gauss,
+               verbose = FALSE)
+#model
+gwrG <- gwr(total_uf ~ tot_constr_m2 + tot_terreno_m2 + num_estacionam, 
+            data = propie2, 
+            bandwidth = bwG,
+            gweight = gwr.Gauss, 
+            hatmatrix = TRUE)
+
+results<-as.data.frame(gwrG$SDF)
+head(results)
+
+propie2$coeffpred <- results$pred
+propie2$coeffconst <- results$tot_constr_m2
+propie2$coeffterr <- results$tot_terreno_m2
+propie2$coeffest <- results$num_estacionam
+
+propie2 <- st_as_sf(propie2)
+
+map <- tm_shape(propie2, name = "pred") +
+  tm_dots(col = "coeffpred") +
+  tm_shape(propie2, name = "const" ) +
+  tm_dots(col = "coeffconst") +
+  tm_shape(propie2, name = "terr" ) +
+  tm_dots(col = "coeffterr") +
+  tm_shape(propie2, name = "est" ) +
+  tm_dots(col = "coeffest")
+  
+tmap_leaflet(map)
